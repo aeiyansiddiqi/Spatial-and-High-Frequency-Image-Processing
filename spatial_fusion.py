@@ -14,11 +14,65 @@
 
 import cv2
 
-def gaussianPyramid(imageFileName, numberofLayers):
+def gaussianPyramid(imageFileName, numberOfLayers):
 
     imageGausPyrmaid = cv2.imread(imageFileName)
+    heightImageOG,widthImageOG, _ = imageGausPyrmaid.shape
+
+    for layer in range(numberOfLayers):
+        #(3,3) is the intensity of the blur 
+        imageGausPyrmaid = cv2.GaussianBlur(imageGausPyrmaid,(3,3),0)
+        imageGausPyrmaid = cv2.pyrDown(imageGausPyrmaid)
+
+    # bring image back to normal size
+    imageGausPyrmaid = cv2.resize(imageGausPyrmaid,(widthImageOG, heightImageOG))
+    # output image after being blured, downsized and brought back up to original size
+    #cv2.imwrite("GaussianBlur(" + (str(layer+1)) + ")-" + imageFileName, imageGausPyrmaid)
+    cv2.imwrite("Gaus-"+imageFileName, imageGausPyrmaid)
+
+import cv2
+
+def laplacianPyramid(imageFileName, numberOfLayers):
+
+    imageGausPyramid = cv2.imread(imageFileName)
+    heightOG, widthOG, _ = imageGausPyramid.shape
+    # Have to keep track of images this time from  gausian pyramid
+    theGaussianPyramid = [imageGausPyramid]
+    
+    # Gaussian pyramid
+    for i in range(numberOfLayers):
+        # Apply Gaussian blur
+        imageGausPyramid = cv2.GaussianBlur(imageGausPyramid, (3, 3), 0)
+        imageGausPyramid = cv2.pyrDown(imageGausPyramid)
+        theGaussianPyramid.append(imageGausPyramid)
+    
     
 
-    for numberofLayer in range(numberofLayers):
-        imageGausPyrmaid = cv2.GaussianBlur(imageGausPyrmaid,(7,7),0)
-        imageGausPyrmaid = cv2.pyrDown(imageGausPyrmaid)
+    # we don't nessarily need to keep the images from the lapassian pyramid as we only need one of them
+    # for the face merge
+    
+    for i in range(numberOfLayers - 1, 0, -1):
+        # get layer from above
+        gaussianLayerUp = cv2.pyrUp(theGaussianPyramid[i])
+        # get dimensions for resizing, will need it when subtract the 2 layers
+        heightcurrentGaus, widthcurrentGaus, _ = theGaussianPyramid[i-1].shape
+        # resize image to the layer bellow
+        # I have to resize image because I didnt resize it when checking if the keylist were empty
+        # maybe I can do that so i don't have to worry abour reziing each time
+        gaussianLayerUpAdjustedSize = cv2.resize(gaussianLayerUp, (widthcurrentGaus, heightcurrentGaus))
+        # subtract the layer bellow with the current layer, we cna subtract it properly since the size is adjusted
+        imagelapPyramid = cv2.subtract(theGaussianPyramid[i-1], gaussianLayerUpAdjustedSize)
+        # Image was too dark before, because there are negative values, we can arrange it
+        # in such away where the values are now shifted from 0 to 255, where the values are no positive
+        imagelapPyramid = cv2.normalize(imagelapPyramid, None, 0, 255, cv2.NORM_MINMAX)
+        if(i == 2):
+            imagelapPyramid = cv2.resize(imagelapPyramid,(widthOG, heightOG))
+            cv2.imwrite("lap"+imageFileName, imagelapPyramid)
+
+    
+
+
+
+
+
+    

@@ -35,6 +35,7 @@ import alignment1
 import sys
 import cv2
 import numpy as np
+import spatial_fusion
 
 args = sys.argv
 
@@ -47,3 +48,7 @@ alignment1.alignImage2(image1FileName,image1FileName,keypoints1FileName,keypoint
 # turn images into grayscale
 alignment1.grayScale(image1FileName)
 alignment1.grayScale("aligned.jpg")
+alignment1.grayScale(image2FileName)
+spatial_fusion.gaussianPyramid(image1FileName,4)
+spatial_fusion.laplacianPyramid("aligned.jpg",4)
+alignment1.hybrid("Gaus-image1.jpg","lapaligned.jpg")

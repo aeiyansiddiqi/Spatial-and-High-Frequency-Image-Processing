@@ -67,6 +67,7 @@ def alignImage2(image1FileName, image2FileName, keypoints1FileName,keypoints2Fil
         affineMatrix, _ = cv2.estimateAffine2D(keypoints2,keypoints1)
 
         allignedImage2 = cv2.warpAffine(image2Obj,affineMatrix,(widthImage1,heightImage1)) 
+        image2Resized_Aligned = cv2.resize(image2Obj,(widthImage1, heightImage1))
         cv2.imwrite("aligned.jpg",allignedImage2)
 
 
@@ -75,10 +76,19 @@ def alignImage2(image1FileName, image2FileName, keypoints1FileName,keypoints2Fil
 def grayScale(imageFileName):
     imageObj = cv2.imread(imageFileName)
     imageGray = cv2.cvtColor(imageObj,cv2.COLOR_BGR2GRAY)
-    cv2.imwrite("Gray-"+imageFileName,imageGray)
+    cv2.imwrite(imageFileName,imageGray)
 
+def hybrid(imageFileName1, imageFileName2):
+    alpha = 0.5
+    beta = 0.5
 
+    image1Gaus = cv2.imread(imageFileName1)
+    image2Lap = cv2.imread(imageFileName2)
 
+    hybridImage = cv2.addWeighted(image1Gaus,alpha,image2Lap,beta,0)
+
+    cv2.imwrite("spatial_hybrid.jpg",hybridImage)
+    
 
 
 
