@@ -15,6 +15,7 @@ import cv2
 import numpy as np
 
 
+
 def alignImage2(image1FileName, image2FileName, keypoints1FileName,keypoints2FileName):
 
     # now i should check if the 2 files are empty
@@ -71,7 +72,10 @@ def alignImage2(image1FileName, image2FileName, keypoints1FileName,keypoints2Fil
 
 
 
-
+def grayScale(imageFileName):
+    imageObj = cv2.imread(imageFileName)
+    imageGray = cv2.cvtColor(imageObj,cv2.COLOR_BGR2GRAY)
+    cv2.imwrite("Gray-"+imageFileName,imageGray)
 
 
 

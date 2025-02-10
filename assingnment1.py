@@ -44,3 +44,6 @@ keypoints1FileName = args[3]
 keypoints2FileName = args[4]
 
 alignment1.alignImage2(image1FileName,image1FileName,keypoints1FileName,keypoints2FileName)
+# turn images into grayscale
+alignment1.grayScale(image1FileName)
+alignment1.grayScale("aligned.jpg")
