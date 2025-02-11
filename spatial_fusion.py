@@ -48,8 +48,7 @@ def laplacianPyramid(imageFileName, numberOfLayers):
     
     
 
-    # we don't nessarily need to keep the images from the lapassian pyramid as we only need one of them
-    # for the face merge
+   # we don't need the whole pyramid as we only care about one image for the face merge
     
     for i in range(numberOfLayers - 1, 0, -1):
         # get layer from above
