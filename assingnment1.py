@@ -36,6 +36,7 @@ import sys
 import cv2
 import numpy as np
 import spatial_fusion
+import frequency_fusion
 
 args = sys.argv
 
@@ -51,4 +52,5 @@ alignment1.grayScale("aligned.jpg")
 alignment1.grayScale(image2FileName)
 spatial_fusion.gaussianPyramid(image1FileName,4)
 spatial_fusion.laplacianPyramid("aligned.jpg",4)
-alignment1.hybrid("Gaus-image1.jpg","lapaligned.jpg")
+alignment1.hybrid("Gaus-image1.jpg","lapaligned.jpg","spatial_hybrid.jpg")
+alignment1.hybrid("lowFreq.jpg","highFreq.jpg","frequency_hybrid.jpg")

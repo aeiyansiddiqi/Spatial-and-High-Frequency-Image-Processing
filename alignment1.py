@@ -78,16 +78,18 @@ def grayScale(imageFileName):
     imageGray = cv2.cvtColor(imageObj,cv2.COLOR_BGR2GRAY)
     cv2.imwrite(imageFileName,imageGray)
 
-def hybrid(imageFileName1, imageFileName2):
+def hybrid(imageFileName1, imageFileName2, name):
     alpha = 0.5
     beta = 0.5
 
     image1Gaus = cv2.imread(imageFileName1)
     image2Lap = cv2.imread(imageFileName2)
 
+    image2Lap = cv2.resize(image2Lap, (image1Gaus.shape[1], image1Gaus.shape[0]))
     hybridImage = cv2.addWeighted(image1Gaus,alpha,image2Lap,beta,0)
 
-    cv2.imwrite("spatial_hybrid.jpg",hybridImage)
+    #cv2.imwrite("spatial_hybrid.jpg",hybridImage)
+    cv2.imwrite(name,hybridImage)
     
 
 
