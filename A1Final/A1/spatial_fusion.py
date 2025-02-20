@@ -42,7 +42,7 @@ def laplacianPyramid(imageFileName, numberOfLayers):
     
     # Gaussian pyramid
     for i in range(numberOfLayers):
-        # Apply Gaussian blur
+        # Gaussian blur
         imageGausPyramid = cv2.GaussianBlur(imageGausPyramid, (3, 3), 0)
         imageGausPyramid = cv2.pyrDown(imageGausPyramid)
         theGaussianPyramid.append(imageGausPyramid)
@@ -51,7 +51,7 @@ def laplacianPyramid(imageFileName, numberOfLayers):
 
    # we don't need the whole pyramid as we only care about one image for the face merge
     
-    # star at 
+    # start at top of pyramid and keep going until you've reached the bottom 
     for i in range(numberOfLayers-1, 0, -1):
         # get layer from above
         gaussianLayerUp = cv2.pyrUp(theGaussianPyramid[i])

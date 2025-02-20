@@ -82,6 +82,8 @@ alignment1.hybrid("roughImageFolder/Gaus-image1.jpg","roughImageFolder/lapaligne
 ############################ Frequency Image ###################################3
 
 
+
+## High Freqyency ###########################################################
 # turn image into fourier domain
 imagetoFFT = frequency_fusion.imageToFourierDomain("roughImageFolder/" +"image1.jpg")
 # get the dimensions of the image
@@ -96,6 +98,8 @@ frequency_fusion.fftToSpatial(imageFFTAppliedFilter, True)
 
 #imagetoFFT = frequency_fusion.imageToFourierDomain("image2.jpg")
 #rowsOfImage, colOfImage = frequency_fusion.imagePixels("image2.jpg")
+
+### Low Frequency ##################################################################
 
 # turn image into fourier domain
 imagetoFFT = frequency_fusion.imageToFourierDomain("roughImageFolder/" +"aligned.jpg")

@@ -27,7 +27,7 @@ def imageToFourierDomain(imageName):
 
     return imagetoFFT
 
-# get dimensions of iamage we plan on doing the filter on
+# get dimensions of image we plan on doing the filter on
 def imagePixels(imageName):
     imageForDimnesionExtraction = cv2.imread(imageName)
     rowsOfImage, columnsOfImage, _ = imageForDimnesionExtraction.shape
