@@ -90,7 +90,7 @@ imagetoFFT = frequency_fusion.imageToFourierDomain("roughImageFolder/" +"image1.
 rowsOfImage, colOfImage = frequency_fusion.imagePixels("roughImageFolder/" +"image1.jpg")
 # create a high frequency filter by erasing all the low frequencies (we do this by erasing all the values in the middle in the form of a circle)
 # the radius of the circle is 10 in the current case, the bigger the radius, the more low frequencyeis we are removing
-filterWindow = frequency_fusion.filterWindowHighFreq(10, rowsOfImage, colOfImage)
+filterWindow = frequency_fusion.filterWindowHighFreq(12, rowsOfImage, colOfImage)
 ### Apply the filter onto teh image
 imageFFTAppliedFilter = frequency_fusion.applyFilter(imagetoFFT,filterWindow)
 # Output the high frequency image
@@ -107,7 +107,7 @@ imagetoFFT = frequency_fusion.imageToFourierDomain("roughImageFolder/" +"aligned
 rowsOfImage, colOfImage = frequency_fusion.imagePixels("roughImageFolder/" +"aligned.jpg")
 # create a high frequency filter by erasing all the low frequencies (we do this by erasing all the values in the middle in the form of a circle)
 # the radius of the circle is 10 in the current case, the bigger the radius, the more low frequencyeis we are removing
-filterWindow = frequency_fusion.filterWindowLowFreq(10, rowsOfImage, colOfImage)
+filterWindow = frequency_fusion.filterWindowLowFreq(15, rowsOfImage, colOfImage)
 ### Apply the filter onto teh image
 imageFFTAppliedFilter = frequency_fusion.applyFilter(imagetoFFT,filterWindow)
 # Output the low frequency image

@@ -84,8 +84,8 @@ def grayScale(imageFileName):
 # I initally used this for the spatial domain but I am now using it for frequency domain as well
 def hybrid(imageFileName1, imageFileName2, name):
     # get weight of images as in alpha and beta
-    image1Weight = 0.4
-    image2Weight = 0.6
+    image1Weight = 0.5
+    image2Weight = 0.5
 
     
     image1Gaus = cv2.imread(imageFileName1)
