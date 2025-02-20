@@ -18,10 +18,11 @@ import cv2
 # convert image to fourier domain
 def imageToFourierDomain(imageName):
     imagetoFFT= cv2.imread(imageName)
-    # image is already grayscsaled, just doing it again
+    # image is already grayscsaled, just doing it again because I was having issues with using .shape
     imagetoFFT = cv2.cvtColor(imagetoFFT,cv2.COLOR_BGR2GRAY)
     imagetoFFT = np.float32(imagetoFFT)
     imagetoFFT = np.fft.fft2(imagetoFFT)
+    # shift low frequencies to the center
     imagetoFFT = np.fft.fftshift(imagetoFFT)
 
     return imagetoFFT
@@ -90,8 +91,11 @@ def fftToSpatial(imageFFTAppliedFilter, booleanForHighorLow):
 
     imagetoFFT = np.fft.ifftshift(imageFFTAppliedFilter)
     spatialImage = np.fft.ifft2(imagetoFFT)
+    # was having trouble brining image back to saptial domain
+    # as I was getting warnings that the system was 
+    # automatically adjusting the encoding, this will help convert complex values to real values and avoid the warnings
     spatialImage =np.abs(spatialImage)
-    # getting errors [ WARN:0@1.282] global loadsave.cpp:848 imwrite_ Unsupported depth image for selected encoder is fallbacked to CV_8U.
+    # getting warnings [ WARN:0@1.282] global loadsave.cpp:848 imwrite_ Unsupported depth image for selected encoder is fallbacked to CV_8U.
     
     spatialImage = np.uint8(spatialImage)
     if booleanForHighorLow == True:

@@ -69,7 +69,7 @@ def alignImage2(image1FileName, image2FileName, keypoints1FileName,keypoints2Fil
 
         # apply the matrix onto image2 with the dimensions of image1
         allignedImage2 = cv2.warpAffine(image2Obj,affineMatrix,(widthImage1,heightImage1)) 
-        image2Resized_Aligned = cv2.resize(image2Obj,(widthImage1, heightImage1))
+        #image2Resized_Aligned = cv2.resize(image2Obj,(widthImage1, heightImage1))
         cv2.imwrite("aligned.jpg",allignedImage2)
 
 
@@ -84,8 +84,8 @@ def grayScale(imageFileName):
 # I initally used this for the spatial domain but I am now using it for frequency domain as well
 def hybrid(imageFileName1, imageFileName2, name):
     # get weight of images as in alpha and beta
-    alpha = 0.4
-    beta = 0.6
+    image1Weight = 0.4
+    image2Weight = 0.6
 
     
     image1Gaus = cv2.imread(imageFileName1)
@@ -94,7 +94,7 @@ def hybrid(imageFileName1, imageFileName2, name):
     # get dimensions of image1
     image2Lap = cv2.resize(image2Lap, (image1Gaus.shape[1], image1Gaus.shape[0]))
     # apply with weights of the images, the last arguemtn is 0 as it is meant for Gama, which is brightness
-    hybridImage = cv2.addWeighted(image1Gaus,alpha,image2Lap,beta,0)
+    hybridImage = cv2.addWeighted(image1Gaus,image1Weight,image2Lap,image2Weight,0)
 
     #cv2.imwrite("spatial_hybrid.jpg",hybridImage)
     cv2.imwrite(name,hybridImage)
