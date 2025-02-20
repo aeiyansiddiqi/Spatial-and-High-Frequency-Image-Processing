@@ -69,13 +69,13 @@ alignment1.grayScale(image2FileName)
 #####################################################################################
 
 ########Get gausisan Image #############################
-spatial_fusion.gaussianPyramid("roughImageFolder/" +image1FileName,4)
+spatial_fusion.gaussianPyramid("roughImageFolder/" +"aligned.jpg",4)
 
 ######## Get Laplacian Image #########################################################
-spatial_fusion.laplacianPyramid("roughImageFolder/" +"aligned.jpg",4)
+spatial_fusion.laplacianPyramid("roughImageFolder/" +image1FileName,4)
 
 ######################## Merge the gausian Image with the laplcian image ########################################
-alignment1.hybrid("roughImageFolder/Gaus-image1.jpg","roughImageFolder/lapaligned.jpg","spatial_hybrid.jpg")
+alignment1.hybrid("roughImageFolder/Gaus-aligned.jpg","roughImageFolder/lapimage1.jpg","spatial_hybrid.jpg")
 
 ##################################################################################################################
 
