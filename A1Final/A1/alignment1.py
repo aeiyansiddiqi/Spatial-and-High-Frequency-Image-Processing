@@ -64,7 +64,7 @@ def alignImage2(image1FileName, image2FileName, keypoints1FileName,keypoints2Fil
         keypoints2 = np.loadtxt(keypoints2FileName)
 
 
-        # get affine matriz
+        # get affine matrix
         affineMatrix, _ = cv2.estimateAffine2D(keypoints2,keypoints1)
 
         # apply the matrix onto image2 with the dimensions of image1
@@ -84,8 +84,8 @@ def grayScale(imageFileName):
 # I initally used this for the spatial domain but I am now using it for frequency domain as well
 def hybrid(imageFileName1, imageFileName2, name):
     # get weight of images as in alpha and beta
-    alpha = 0.3
-    beta = 0.7
+    alpha = 0.4
+    beta = 0.6
 
     
     image1Gaus = cv2.imread(imageFileName1)

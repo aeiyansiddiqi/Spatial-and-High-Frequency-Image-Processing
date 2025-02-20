@@ -28,6 +28,7 @@ def gaussianPyramid(imageFileName, numberOfLayers):
     imageGausPyrmaid = cv2.resize(imageGausPyrmaid,(widthImageOG, heightImageOG))
     # output image after being blured, downsized and brought back up to original size
     #cv2.imwrite("GaussianBlur(" + (str(layer+1)) + ")-" + imageFileName, imageGausPyrmaid)
+    imageFileName = imageFileName.replace("roughImageFolder/", "")
     cv2.imwrite("roughImageFolder/Gaus-"+imageFileName, imageGausPyrmaid)
 
 import cv2
@@ -64,6 +65,7 @@ def laplacianPyramid(imageFileName, numberOfLayers):
         imagelapPyramid = cv2.subtract(theGaussianPyramid[i-1], gaussianLayerUpAdjustedSize)
         if(i == 2):
             imagelapPyramid = cv2.resize(imagelapPyramid,(widthOG, heightOG))
+            imageFileName = imageFileName.replace("roughImageFolder/", "")
             cv2.imwrite("roughImageFolder/lap"+imageFileName, imagelapPyramid)
 
     
