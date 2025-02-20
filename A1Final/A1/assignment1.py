@@ -49,6 +49,12 @@ keypoints2FileName = args[4]
 
 #################################################################################
 
+###################### Create folder for all the image files that we will be needing for the hybrid images ###################3
+import os
+
+folder_name = "roughImageFolder"
+
+os.makedirs(folder_name, exist_ok=True)
 
 ####################### Align image ############################################
 
@@ -63,13 +69,13 @@ alignment1.grayScale(image2FileName)
 #####################################################################################
 
 ########Get gausisan Image #############################
-spatial_fusion.gaussianPyramid(image1FileName,4)
+spatial_fusion.gaussianPyramid("roughImageFolder/" +image1FileName,4)
 
 ######## Get Laplacian Image #########################################################
-spatial_fusion.laplacianPyramid("aligned.jpg",4)
+spatial_fusion.laplacianPyramid("roughImageFolder/" +"aligned.jpg",4)
 
 ######################## Merge the gausian Image with the laplcian image ########################################
-alignment1.hybrid("Gaus-image1.jpg","lapaligned.jpg","spatial_hybrid.jpg")
+alignment1.hybrid("roughImageFolder/Gaus-image1.jpg","roughImageFolder/lapaligned.jpg","spatial_hybrid.jpg")
 
 ##################################################################################################################
 
@@ -77,9 +83,9 @@ alignment1.hybrid("Gaus-image1.jpg","lapaligned.jpg","spatial_hybrid.jpg")
 
 
 # turn image into fourier domain
-imagetoFFT = frequency_fusion.imageToFourierDomain("image1.jpg")
+imagetoFFT = frequency_fusion.imageToFourierDomain("roughImageFolder/" +"image1.jpg")
 # get the dimensions of the image
-rowsOfImage, colOfImage = frequency_fusion.imagePixels("image1.jpg")
+rowsOfImage, colOfImage = frequency_fusion.imagePixels("roughImageFolder/" +"image1.jpg")
 # create a high frequency filter by erasing all the low frequencies (we do this by erasing all the values in the middle in the form of a circle)
 # the radius of the circle is 10 in the current case, the bigger the radius, the more low frequencyeis we are removing
 filterWindow = frequency_fusion.filterWindowHighFreq(10, rowsOfImage, colOfImage)
@@ -92,9 +98,9 @@ frequency_fusion.fftToSpatial(imageFFTAppliedFilter, True)
 #rowsOfImage, colOfImage = frequency_fusion.imagePixels("image2.jpg")
 
 # turn image into fourier domain
-imagetoFFT = frequency_fusion.imageToFourierDomain("aligned.jpg")
+imagetoFFT = frequency_fusion.imageToFourierDomain("roughImageFolder/" +"aligned.jpg")
 # get the dimensions of the image
-rowsOfImage, colOfImage = frequency_fusion.imagePixels("aligned.jpg")
+rowsOfImage, colOfImage = frequency_fusion.imagePixels("roughImageFolder/" +"aligned.jpg")
 # create a high frequency filter by erasing all the low frequencies (we do this by erasing all the values in the middle in the form of a circle)
 # the radius of the circle is 10 in the current case, the bigger the radius, the more low frequencyeis we are removing
 filterWindow = frequency_fusion.filterWindowLowFreq(10, rowsOfImage, colOfImage)
@@ -103,7 +109,7 @@ imageFFTAppliedFilter = frequency_fusion.applyFilter(imagetoFFT,filterWindow)
 # Output the low frequency image
 frequency_fusion.fftToSpatial(imageFFTAppliedFilter, False)
 
-alignment1.hybrid("lowFreq.jpg","highFreq.jpg","frequency_hybrid.jpg")
+alignment1.hybrid("roughImageFolder/lowFreq.jpg","roughImageFolder/highFreq.jpg","frequency_hybrid.jpg")
 
 
 ################################################################################

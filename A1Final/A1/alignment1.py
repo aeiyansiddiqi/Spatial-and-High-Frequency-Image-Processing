@@ -79,13 +79,13 @@ def alignImage2(image1FileName, image2FileName, keypoints1FileName,keypoints2Fil
 def grayScale(imageFileName):
     imageObj = cv2.imread(imageFileName)
     imageGray = cv2.cvtColor(imageObj,cv2.COLOR_BGR2GRAY)
-    cv2.imwrite(imageFileName,imageGray)
+    cv2.imwrite("roughImageFolder/" +imageFileName,imageGray)
 
 # I initally used this for the spatial domain but I am now using it for frequency domain as well
 def hybrid(imageFileName1, imageFileName2, name):
     # get weight of images as in alpha and beta
-    alpha = 0.4
-    beta = 0.6
+    alpha = 0.3
+    beta = 0.7
 
     
     image1Gaus = cv2.imread(imageFileName1)
